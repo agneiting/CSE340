@@ -72,6 +72,7 @@ p {
 footer {
     text-align: center;
     border-top: 3px solid #3a3a3a;
+    margin-top: .75em;
 }
 footer p {
     margin: 5px;
