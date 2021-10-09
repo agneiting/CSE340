@@ -12,7 +12,7 @@ function phpmotorsConnect(){
     // Create the actual connection object and assign it to a variable
     try {
         $link = new PDO($dsn, $username, $password, $options);
-        echo "Hey I can connect!";
+        //echo "Hey I can connect!";
 
         return $link;
     } catch(PDOException $e) {
@@ -24,3 +24,4 @@ function phpmotorsConnect(){
 }
 
 phpmotorsConnect();
+?>
