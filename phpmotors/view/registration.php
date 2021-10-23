@@ -18,24 +18,41 @@
     </nav>
     <main>
         <h1>Registration</h1>
-        <form>
-            First Name:
+        
+        <?php
+        if (isset($message)) {
+        echo $message;
+        }
+        ?>
+        
+        <form action="/phpmotors/accounts/index.php" method="post">
+            <label for="clientFirstname">First Name:</label>
             <br>
-            <input type="text" required>
+
+            <input type="text" name="clientFirstname" id="clientFirstname">
             <br>
-            Last Name:
+
+            <label for="clientLastname">Last Name:</label>
             <br>
-            <input type="text" required>
+
+            <input type="text" name="clientLastname" id="clientLastname">
             <br>
-            Email:
+
+            <label for="clientEmail">Email:</label>
             <br>
-            <input type="text" required>
+
+            <input type="text" name="clientEmail" id="clientEmail">
             <br>
-            Password:
+
+            <label for="clientPassword">Password:</label>
             <br>
-            <input type="text" required>
+
+            <input type="text" name="clientPassword" id="clientPassword">
             <br>
-            <input type="submit" value="Submit">
+             
+            <input type="submit" name="submit" id="regbtn" value="Register">
+            <!-- Add the action name - value pair -->
+            <input type="hidden" name="action" value="register">   
         </form>
     </main>
     <footer>

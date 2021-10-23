@@ -1,5 +1,5 @@
 <?php
-//Main PHPMotors Model.
+//Main PHPMotors Model
 
 
 function getClassifications(){

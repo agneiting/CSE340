@@ -17,15 +17,20 @@
         <?php echo $navList; ?>
     </nav>
     <main>
-        <h1>Login</h1>
-        <form>
+        <h1>PHP Motors Login</h1>
+        <?php
+            if (isset($message)) {
+            echo $message;
+            }
+        ?>
+        <form action="/phpmotors/accounts/index.php" method="post">
             Email:
             <br>
-            <input type="text" require>
+            <input type="text" name="clientEmail" id="clientEmail" required>
             <br>
             Password:
             <br>
-            <input type="text" require>
+            <input type="text" name="clientPassword" id="clientPassword" required>
             <br>
             <input type="submit" value="Submit">
         </form>
