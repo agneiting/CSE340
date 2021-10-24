@@ -75,7 +75,7 @@ switch ($action){
         }
 
         // Send the data to the model
-        $newInventoryOutcome = newInventory($invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
+        $newInventoryOutcome = newInventory($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
 
         // Check and report the result
         if($newInventoryOutcome === 1){
