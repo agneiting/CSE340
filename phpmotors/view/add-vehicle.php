@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+<?php 
+    //Build a dropdown menu
+    $classificationList = '<select id="classification" name="classification">';
+    $classificationList .= '<option value="" selected>--Select Classification--</option>';
+    foreach ($classifications as $classification) {
+        $classificationList .= "<option value='$classification[classificationId]'";
+        if(isset($classificationId)){
+            if($classification['classificationId'] === $classificationId){
+                    $classificationList .= 'selected';
+            }
+        }  
+        $classificationList .= ">$classification[classificationName]</option>";
+    }
+    $classificationList .= '</select>'; 
+    
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,35 +47,35 @@
             <br>
             <label for="invMake">Make:</label>
             <br>
-            <input type="text" name="invMake" id="invMake">
+            <input type="text" name="invMake" id="invMake" <?php if (isset($invMake)){echo "value='$invMake'";}  ?> required>
             <br>
             <label for="invModel">Model:</label>
             <br>
-            <input type="text" name="invModel" id="invModel">
+            <input type="text" name="invModel" id="invModel" <?php if (isset($invModel)){echo "value='$invModel'";}  ?> required>
             <br>
             <label for="invDescription">Description:</label>
             <br>
-            <input type="text" name="invDescription" id="invDescription">
+            <input type="text" name="invDescription" id="invDescription" <?php if (isset($invDescription)){echo "value='$invDescription'";}  ?> required>
             <br>
             <label for="invImage">Image Path:</label>
             <br>
-            <input type="text" name="invImage" id="invImage" value="/images/no-image.png">
+            <input type="text" name="invImage" id="invImage" value="/images/no-image.png" <?php if (isset($invImage)){echo "value='$invImage'";}  ?> required>
             <br>
             <label for="invThumbnail">Thumbnail Path:</label>
             <br>
-            <input type="text" name="invThumbnail" id="invThumbnail" value="/images/no-image.png">
+            <input type="text" name="invThumbnail" id="invThumbnail" value="/images/no-image.png" <?php if (isset($invThumbnail)){echo "value='$invThumbnail'";}  ?> required>
             <br>
             <label for="invPrice">Price:</label>
             <br>
-            <input type="text" name="invPrice" id="invPrice">
+            <input type="text" name="invPrice" id="invPrice" <?php if (isset($invPrice)){echo "value='$invPrice'";}  ?> required>
             <br>
             <label for="invStock">Stock:</label>
             <br>
-            <input type="text" name="invStock" id="invStock">
+            <input type="number" name="invStock" id="invStock" <?php if (isset($invStock)){echo "value='$invStock'";}  ?> required>
             <br>
             <label for="invColor">Color:</label>
             <br>
-            <input type="text" name="invColor" id="invColor">
+            <input type="text" name="invColor" id="invColor" <?php if (isset($invColor)){echo "value='$invColor'";}  ?> required>
             <br>
             <br>
             <input type="submit" value="Submit">

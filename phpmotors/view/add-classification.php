@@ -28,7 +28,7 @@
         <form action="/phpmotors/vehicles/index.php" method="post">
             <label for="classificationName">Classification Name:</label>
             <br>
-            <input type="text" name="classificationName" id="classificationName">
+            <input type="text" name="classificationName" id="classificationName" maxlength="30" required>
             <br>
             <br>
             <input type="submit" value="Submit">

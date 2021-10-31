@@ -26,14 +26,20 @@
         <form action="/phpmotors/accounts/index.php" method="post">
             Email:
             <br>
-            <input type="text" name="clientEmail" id="clientEmail" required>
+            <input type="email" name="clientEmail" id="clientEmail" required <?php if (isset($clientEmail)){echo "value='$clientEmail'";}  ?>>
             <br>
             Password:
             <br>
-            <input type="text" name="clientPassword" id="clientPassword" required>
+            <span>Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+            <br>
+            <input type="password" name="clientPassword" id="clientPassword" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
+            <br>
             <br>
             <input type="submit" value="Submit">
+            <!-- Add the action name - value pair -->
+            <input type="hidden" name="action" value="login"> 
         </form>
+        <br>
         <h2>No Account? <a href="/phpmotors/accounts/index.php?action=registration">Sign-Up</a> </h2>
     </main>
     <footer>
