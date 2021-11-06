@@ -14,7 +14,6 @@ require_once '../library/functions.php';
 // Get the array of classifications
 $classifications = getClassifications();
 
-
 // Build a navigation bar using the $classifications array
 $navList = buildNav($classifications);
 
@@ -25,6 +24,7 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL){
  $action = filter_input(INPUT_GET, 'action');
 }
+
 
 //The switch control structure examines the $action variable, to see what it's value is.
 switch ($action){
@@ -62,6 +62,14 @@ switch ($action){
         //Validate email and password using function library
         $clientEmail = checkEmail($clientEmail);
         $checkPassword = checkPassword($clientPassword);
+
+        //Check for existing emails
+        $existingEmail = checkExistingEmail($clientEmail);
+        if($existingEmail){
+            $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
+            include '../view/login.php';
+            exit;
+        }    
 
         // Check for missing data
         if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)){
