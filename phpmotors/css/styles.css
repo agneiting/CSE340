@@ -28,6 +28,10 @@ header {
     margin-right: 1em; 
     padding-bottom: .75em;
 }
+header span {
+    justify-content: right;
+}
+
 header p {
     margin: 1em;
 }

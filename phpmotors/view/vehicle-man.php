@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+    //Check for login and level
+    if($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] == 1){
+        include header('location: /phpmotors/index.php');
+    }
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>

@@ -1,4 +1,9 @@
 <?php 
+    //Check for login and level
+    if($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] == 1){
+        include header('location: /phpmotors/index.php');
+    }
+    
     //Build a dropdown menu
     $classificationList = '<select id="classification" name="classification">';
     $classificationList .= '<option value="" selected>--Select Classification--</option>';
@@ -12,7 +17,6 @@
         $classificationList .= ">$classification[classificationName]</option>";
     }
     $classificationList .= '</select>'; 
-    
 ?><!DOCTYPE html>
 <html lang="en">
 

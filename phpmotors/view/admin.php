@@ -2,9 +2,6 @@
     //Check for login
     if(!$_SESSION['loggedin']){
         include header('location: /phpmotors/index.php');
-        echo 'ya not logged in';
-    } else {
-        echo 'ya logged in';
     }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -25,7 +22,21 @@
         <?php echo $navList; ?>
     </nav>
     <main>
-        <h1>Title</h1>
+        <h1>
+            <?php 
+                echo $_SESSION['clientData']['clientFirstname'] . " " . $_SESSION['clientData']['clientLastname']; 
+            ?>
+        </h1>
+        <ul>
+            <li>First Name: <?php echo $_SESSION['clientData']['clientFirstname']; ?></li>
+            <li>Last Name: <?php echo $_SESSION['clientData']['clientLastname']; ?></li>
+            <li>Email: <?php echo $_SESSION['clientData']['clientEmail']; ?></li>
+        </ul>
+        <?php 
+                if($_SESSION['clientData']['clientLevel'] > 1) {
+                    echo '<p> <a href="/phpmotors/vehicles/index.php">Vehicle Manager<a></p>';
+                }
+        ?>
     </main>
     <footer>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
