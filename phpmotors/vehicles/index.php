@@ -1,6 +1,8 @@
 <?php
 //This is the vehicle controller. 
 
+//Start session 
+session_start();
 
 // Get the database connection file
 require_once '../library/connections.php';

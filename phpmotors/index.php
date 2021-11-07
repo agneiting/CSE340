@@ -1,19 +1,27 @@
 <?php
 //This is the main controller. 
 
+//Create or access a session
+session_start();
 
 // Get the database connection file
 require_once 'library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once 'model/main-model.php';
+//Get the functions library
+require_once 'library/functions.php';
 
 
 // Get the array of classifications
 $classifications = getClassifications();
 
-
 // Build a navigation bar using the $classifications array
 $navList = buildNav($classifications);
+
+//Check if the firstname cookie exists, get its value
+if(isset($_COOKIE['firstname'])){
+  $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
+}
 
 //$action is a variable that we will use to store the type of content being requested.
 //We use the filter_input() function to sift the content to eliminate code that could do the web site harm (read more on php.net about the filter_input funtion).
