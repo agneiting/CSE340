@@ -185,7 +185,41 @@ switch ($action){
 
         break;
 
-        
+    case 'del':
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+        $invInfo = getInvItemInfo($invId);
+        if (count($invInfo) < 1) {
+                $message = 'Sorry, no vehicle information could be found.';
+            }
+            include '../view/vehicle-delete.php';
+            exit;
+            break;
+
+
+    case 'deleteVehicle':
+        // Filter and store the data
+        $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING));
+        $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING));
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+
+        // Send the data to the model
+        $deleteResult = deleteVehicle($invId);
+
+        // Check and report the result
+        if($deleteResult){
+            $message = "<p>$invMake $invModel has been successfuly deleted.</p><br>";
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/vehicles/');
+            exit;
+        } else {
+            $message = "<p>Sorry, the vehicle has not been deleted. Please try again.</p><br>";
+            include '../view/vehicle-delete.php';
+            exit;
+        }
+        break;
+
+
     default:
         //Call buildClassificationList function to create a select list to be displayed in the VM view.
         $classificationList = buildClassificationList($classifications);

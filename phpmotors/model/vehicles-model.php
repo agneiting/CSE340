@@ -114,4 +114,16 @@ function updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThum
     // Return the indication of success (rows changed)
     return $rowsChanged;
 }   
+
+//Function to delete a vehicle from inventory.
+function deleteVehicle($invId) {
+    $db = phpmotorsConnect();
+    $sql = 'DELETE FROM inventory WHERE invId = :invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
+   }
 ?>
