@@ -196,8 +196,9 @@ switch ($action){
 
         // Check and report the result
         if($updateClientOutcome === 1){
-            $accountmessage = '<p>Update Successful</p><br>';
-            include '../view/client-update.php';
+            $message = "<p>Account Update Successful</p>";
+            $_SESSION['message'] = $message;
+            header('location: ../accounts/index.php');
             exit;
         } else {
             $accountmessage = '<p>No Change Recorded</p><br>';
@@ -230,8 +231,9 @@ switch ($action){
 
         // Check and report the result
         if($updatePasswordOutcome === 1){
-            $passwordmessage = "<p>Password Update Successful</p>";
-            include '../view/client-update.php';
+            $message = "Password Update Successful";
+            $_SESSION['message'] = $message;
+            header('location: ../accounts/index.php');
             exit;
         } else {
             $passwordmessage = "<p>Password Update Unsuccessful</p>";
@@ -241,6 +243,10 @@ switch ($action){
         break;
 
     default:
+        //Get info for client
+        $clientId = $_SESSION['clientData']['clientId'];
+        $clientData = getClientById($clientId);
+        $_SESSION['clientData'] = $clientData;
         include '../view/admin.php';
     break;
      

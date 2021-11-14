@@ -24,19 +24,18 @@
     <main>
         <h1>
             <?php 
-                echo $_SESSION['clientData']['clientFirstname'] . " " . $_SESSION['clientData']['clientLastname']; 
+                echo "Logged in as " . $_SESSION['clientData']['clientFirstname'] . " " . $_SESSION['clientData']['clientLastname']; 
             ?>
         </h1>
         
         <?php
-        if (isset($message)) {
-        echo $message;
-        }
+           if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+           }
         ?>
 
-        <p>Successful Login</p>
         <ul>
-            <li>First Name: <?php echo $_SESSION['clientData']['clientFirstname']; ?></li>
+            <li>First Name: <?php echo $_SESSION['clientData']['clientFirstname']; ?></li> 
             <li>Last Name: <?php echo $_SESSION['clientData']['clientLastname']; ?></li>
             <li>Email: <?php echo $_SESSION['clientData']['clientEmail']; ?></li>
         </ul>
