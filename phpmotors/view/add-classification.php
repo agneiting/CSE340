@@ -1,7 +1,8 @@
 <?php
     //Check for login and level
-    if($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] == 1){
-        include header('location: /phpmotors/index.php');
+    if ($_SESSION['clientData']['clientLevel'] < 2) {
+        header('location: /phpmotors/');
+        exit;
     }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -29,6 +30,8 @@
         echo $message;
         }
         ?>
+
+        <table id="inventoryDisplay"></table>
 
         <form action="/phpmotors/vehicles/index.php" method="post">
             <label for="classificationName">Classification Name:</label>

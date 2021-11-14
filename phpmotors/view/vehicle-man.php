@@ -1,8 +1,16 @@
 <?php
     //Check for login and level
-    if($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] == 1){
-        include header('location: /phpmotors/index.php');
+    if ($_SESSION['clientData']['clientLevel'] < 2) {
+        header('location: /phpmotors/');
+        exit;
     }
+
+
+
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+       }
+
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -26,10 +34,35 @@
         <a href="/phpmotors/vehicles/index.php?action=addclass" title="">Add Classification</a>
         <br>
         <a href="/phpmotors/vehicles/index.php?action=addvehicle" title="">Add Vehicle</a>
+        <br><br>
+
+
+        <?php
+            if (isset($message)) { 
+            echo $message; 
+            } 
+            if (isset($classificationList)) { 
+            echo '<h2>Vehicles By Classification</h2>'; 
+            echo '<p>Choose a classification to see those vehicles</p>'; 
+            echo $classificationList; 
+            }
+        ?>
+
+        <noscript>
+        <p><strong>JavaScript Must Be Enabled to Use this Page.</strong></p>
+        </noscript>
+        <br>
+        <br>
+        <table id="inventoryDisplay"></table>
+        <br>
+    
     </main>
     <footer>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
     </footer>
 </body>
 
+<script src="/phpmotors/js/inventory.js"></script>
+
 </html>
+<?php unset($_SESSION['message']); ?>

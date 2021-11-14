@@ -60,10 +60,10 @@ switch ($action){
         $invDescription = trim(filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_STRING));
         $invImage = trim(filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_STRING));
         $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_STRING));
-        $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_STRING));
+        $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
         $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT));
         $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_STRING));
-        $classificationId = trim(filter_input(INPUT_POST, 'classification', FILTER_SANITIZE_STRING));
+        $classificationId = trim(filter_input(INPUT_POST, 'classification', FILTER_SANITIZE_NUMBER_INT));
 
         //Check with external functions
         $invStock = checkStock($invStock);
@@ -115,7 +115,81 @@ switch ($action){
         }
         break;
 
-      default:
+
+    /* * ********************************** 
+    * Get vehicles by classificationId 
+    * Used for starting Update & Delete process 
+    * ********************************** */ 
+    case 'getInventoryItems': 
+        // Get the classificationId 
+        $classificationId = filter_input(INPUT_GET, 'classificationId', FILTER_SANITIZE_NUMBER_INT); 
+        // Fetch the vehicles by classificationId from the DB 
+        $inventoryArray = getInventoryByClassification($classificationId); 
+        // Convert the array to a JSON object and send it back 
+        echo json_encode($inventoryArray); 
+        break;
+
+    
+    case 'mod':
+        //Get value of second name - value pair
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+        //Get info for that vehicle
+        $invInfo = getInvItemInfo($invId);
+        //Check if there is any data, if not show error message
+        if(count($invInfo)<1){
+        $message = 'Sorry, no vehicle information could be found.';
+        }
+        //Call view that allows data to be displayed for updating
+        include '../view/vehicle-update.php';
+        exit;
+        break;
+    
+    
+    case 'updateVehicle':
+        // Filter and store the data
+        $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING));
+        $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING));
+        $invDescription = trim(filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_STRING));
+        $invImage = trim(filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_STRING));
+        $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_STRING));
+        $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
+        $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT));
+        $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_STRING));
+        $classificationId = trim(filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT));
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+        //Check with external functions
+        $invStock = checkStock($invStock);
+
+        // Check for missing data
+        if(empty($invMake) || empty($invModel) || empty($invDescription) || empty($invImage) || empty($invThumbnail) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)){
+            $message = '<p>Please complete all information for the new item! Double check the classification of the item.</p><br>';
+            include '../view/vehicle-update.php';
+            exit; 
+        }
+
+        // Send the data to the model
+        $updateResult = updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId);
+
+        // Check and report the result
+        if($updateResult === 1){
+            $message = "<p>$invMake $invModel has been successfuly updated.</p><br>";
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/vehicles/');
+            exit;
+        } else {
+            $message = "<p>Sorry, the vehicle has not been updated. Please try again.</p><br>";
+            include '../view/vehicle-update.php';
+            exit;
+        }
+
+        break;
+
+        
+    default:
+        //Call buildClassificationList function to create a select list to be displayed in the VM view.
+        $classificationList = buildClassificationList($classifications);
+
        include '../view/vehicle-man.php';
        break;
    }
