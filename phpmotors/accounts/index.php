@@ -162,7 +162,83 @@ switch ($action){
         }
         break;
 
+    case 'modaccount':
+        //Get info for client
+        $clientId = $_SESSION['clientData']['clientId'];
+        $clientData = getClientById($clientId);
+        //Check if there is any data, if not show error message
+        if(empty($clientData)){
+        $message = 'Sorry, no account information could be found.';
+        }
+        //Call view that allows data to be displayed for updating
+        include '../view/client-update.php';
+        break;
 
+   case 'accountupdate':
+        // Filter and store the data
+        $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_STRING));
+        $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_STRING));
+        $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+
+        //Validate email
+        $clientEmail = checkEmail($clientEmail);
+        
+        // Check for missing data
+        if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail)){
+            $accountmessage = '<p>Please complete all information.</p><br>';
+            include '../view/client-update.php';
+            exit; 
+        }
+
+        // Send the data to the model
+        $updateClientOutcome = updateClient($clientFirstname, $clientLastname, $clientEmail, $clientId);
+
+        // Check and report the result
+        if($updateClientOutcome === 1){
+            $accountmessage = '<p>Update Successful</p><br>';
+            include '../view/client-update.php';
+            exit;
+        } else {
+            $accountmessage = '<p>No Change Recorded</p><br>';
+            include '../view/client-update.php';
+            exit;
+        }
+        include '../view/client-update.php';
+        break;    
+
+    case 'updatepassword':
+        // Filter and store the data
+        $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));
+        $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+
+        //Validate email and password using function library
+        $checkPassword = checkPassword($clientPassword);
+
+        // Check for missing data
+        if(empty($checkPassword)){
+            $passwordmessage = '<p>Please provide new password.</p>';
+            include '../view/client-update.php';
+            exit; 
+        }
+
+        // Hash the checked password
+        $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+
+        // Send the data to the model
+        $updatePasswordOutcome = updatePassword($hashedPassword, $clientId);
+
+        // Check and report the result
+        if($updatePasswordOutcome === 1){
+            $passwordmessage = "<p>Password Update Successful</p>";
+            include '../view/client-update.php';
+            exit;
+        } else {
+            $passwordmessage = "<p>Password Update Unsuccessful</p>";
+            include '../view/client-update.php';
+            exit;
+        }
+        break;
 
     default:
         include '../view/admin.php';
