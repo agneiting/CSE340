@@ -41,14 +41,14 @@
         </ul>
         <h2>Account Management</h2><br>
         <p>Use this link to update account information.</p>
-        <p> <a href="/phpmotors/accounts/index.php?action=modaccount">Update Account Information<a></p>
+        <p> <a href="/phpmotors/accounts/index.php?action=modaccount">Update Account Information</a></p>
         <br><br>
         <?php 
                 if($_SESSION['clientData']['clientLevel'] > 1) {
                     echo '
                         <h2>Inventory Management</h2><br>
                         <p>Use this link to manage the inventory.</p>
-                        <p> <a href="/phpmotors/vehicles/index.php">Vehicle Manager<a></p>';
+                        <p> <a href="/phpmotors/vehicles/index.php">Vehicle Manager</a></p>';
                 }
         ?>
     </main>
