@@ -219,6 +219,16 @@ switch ($action){
         }
         break;
 
+    case 'classification':
+        $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_STRING);
+        $vehicles = getVehiclesByClassification($classificationName);
+        if(!count($vehicles)){
+        $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
+        } else {
+        $vehicleDisplay = buildVehiclesDisplay($vehicles);
+        }
+        include '../view/classification.php';
+        break;
 
     default:
         //Call buildClassificationList function to create a select list to be displayed in the VM view.

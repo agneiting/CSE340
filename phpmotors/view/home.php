@@ -23,7 +23,7 @@
                 <h2>DMC Delorean</h2>
                 <p>3 Cup holders<br>Superman doors<br> Fuzzy dice!</p>
             </article>
-            <img src="/phpmotors/images/delorean.jpg" alt="DMC Delorean">
+            <img src="/phpmotors/images/vehicles/delorean.jpg" alt="DMC Delorean">
             <button type="button"><strong>Own Today</strong></button>
         </section>
         <div class="container">

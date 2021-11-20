@@ -11,6 +11,13 @@ font-family: 'Gemunu Libre', sans-serif;
 
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;500&display=swap');
 
+html{
+    box-sizing: border-box;
+   }
+   
+*, *:before, *:after{
+    box-sizing: inherit;
+}
 
 body {
     background-color: #ffffff;
@@ -122,7 +129,26 @@ footer p {
     margin: 3px 3px 0px 3px;
 }
 
-
+#inv-display {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   }
+#inv-display li{
+    margin-bottom: .5em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    /*border: 1px #ccc solid;*/
+    list-style-type: none;
+    flex: 1 1 auto;
+}
+#inv-display hr {
+    border: 1px solid white;
+}
+#inv-display li img {
+       max-width: 100%;
+}
 
 
 @media screen and (min-width: 700px) {
@@ -160,4 +186,27 @@ footer p {
         flex-direction: row-reverse;
         justify-content: space-between;
     }
+
+    /* For vehicle display in classification view */
+	#inv-display {
+		flex-flow: row wrap;
+		justify-content: space-evenly
+	}
+
+	#inv-display h2{
+		font-size: 1rem;
+	}
+
+	#inv-display li {
+		max-width: 200px;
+		flex: 1 0 auto;
+		text-align: center;
+		height: 210px;
+		display: flex;
+		flex-direction: column;
+		/*justify-content: space-between;*/
+	}
+	#inv-display div {
+		width: 100%;
+	}
 }

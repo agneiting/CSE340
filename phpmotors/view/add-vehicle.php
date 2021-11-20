@@ -63,11 +63,11 @@
             <br>
             <label for="invImage">Image Path:</label>
             <br>
-            <input type="text" name="invImage" id="invImage" value="/images/no-image.png" <?php if (isset($invImage)){echo "value='$invImage'";}  ?> required>
+            <input type="text" name="invImage" id="invImage" <?php if (isset($invImage)){echo "value='$invImage'";}  ?> required>
             <br>
             <label for="invThumbnail">Thumbnail Path:</label>
             <br>
-            <input type="text" name="invThumbnail" id="invThumbnail" value="/images/no-image.png" <?php if (isset($invThumbnail)){echo "value='$invThumbnail'";}  ?> required>
+            <input type="text" name="invThumbnail" id="invThumbnail" <?php if (isset($invThumbnail)){echo "value='$invThumbnail'";}  ?> required>
             <br>
             <label for="invPrice">Price:</label>
             <br>
