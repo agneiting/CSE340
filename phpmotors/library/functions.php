@@ -55,14 +55,33 @@ function buildClassificationList($classifications){
 function buildVehiclesDisplay($vehicles){
     $dv = '<ul id="inv-display">';
     foreach ($vehicles as $vehicle) {
+     $price = "$" . number_format($vehicle["invPrice"]);
+
      $dv .= '<li>';
-     $dv .= "<img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+     $dv .= "<a href='/phpmotors/vehicles/index.php?action=vehicledetail&invId=".urlencode($vehicle['invId'])."&invModel=".urlencode($vehicle['invModel'])."&invMake=".urlencode($vehicle['invMake'])."'><img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'></a>";
      $dv .= '<hr>';
-     $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
-     $dv .= "<span>$vehicle[invPrice]</span>";
+     $dv .= "<a href='/phpmotors/vehicles/index.php?action=vehicledetail&invId=".urlencode($vehicle['invId'])."&invModel=".urlencode($vehicle['invModel'])."&invMake=".urlencode($vehicle['invMake'])."'><h2>$vehicle[invMake] $vehicle[invModel]</h2></a>";
+     $dv .= "<span>$price</span>";
      $dv .= '</li>';
     }
     $dv .= '</ul>';
     return $dv;
+   }
+
+//Function that will build a display of details for a vehicle within an unordered list
+   function buildVehicleDetailsDisplay($vehicleDetails) {
+    $dv = '<ul id="vd-display">';
+    foreach ($vehicleDetails as $vehicleDetail) {
+     $price = "Price: $" . number_format($vehicleDetail["invPrice"]);
+
+     $dv .= '<li>';
+     $dv .= "<img class='item1' src='$vehicleDetail[invImage]' alt='Image of $vehicleDetail[invMake] $vehicleDetail[invModel] on phpmotors.com'>";
+     $dv .= "<h2 class='item2'>$vehicleDetail[invMake] $vehicleDetail[invModel] Details</h2>";
+     $dv .= "<span class='item3' id='vd-display-price'>$price</span>";
+     $dv .= "<p class='item4'>$vehicleDetail[invDescription]</p>";
+     $dv .= '</li>';
+    }
+    $dv .= '</ul>';
+    return $dv;    
    }
 ?>

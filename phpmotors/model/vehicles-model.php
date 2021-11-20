@@ -139,6 +139,16 @@ function getVehiclesByClassification($classificationName) {
     return $vehicles;
 }
 
-
+//Function that gets list of details based on vehicle.
+function getVehicleDetails($invId) {
+    $db = phpmotorsConnect();
+    $sql = 'SELECT * FROM inventory WHERE invId = :invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->execute();
+    $vehicleDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $vehicleDetails;
+}
 
 ?>

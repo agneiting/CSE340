@@ -230,6 +230,18 @@ switch ($action){
         include '../view/classification.php';
         break;
 
+    case 'vehicledetail':
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
+        $invModel = filter_input(INPUT_GET, 'invModel', FILTER_SANITIZE_STRING);
+        $vehicleDetails = getVehicleDetails($invId);
+        if(!count($vehicleDetails)){
+        $message = "<p class='notice'>Sorry, $invModel could not be found.</p>";
+        } else {
+        $vehicleDetailsDisplay = buildVehicleDetailsDisplay($vehicleDetails);
+        }
+        include '../view/vehicle-detail.php';
+        break;
+
     default:
         //Call buildClassificationList function to create a select list to be displayed in the VM view.
         $classificationList = buildClassificationList($classifications);
