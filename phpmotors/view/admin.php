@@ -51,6 +51,15 @@
                         <p> <a href="/phpmotors/vehicles/index.php">Vehicle Manager</a></p>';
                 }
         ?>
+        <br><br>
+        <h2>Manage My Reviews</h2>
+        <?php 
+            //check for a message and display it if found
+            if(isset($message)){echo $message; }
+            //display the reviews for the vehicle
+            $clientId = $_SESSION['clientData']['clientId'];
+            echo getReviewsByClient($clientId); 
+        ?>
     </main>
     <footer>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>

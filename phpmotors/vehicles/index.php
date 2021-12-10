@@ -10,6 +10,8 @@ require_once '../library/connections.php';
 require_once '../model/main-model.php';
 // Get the Vehicles Model.
 require_once '../model/vehicles-model.php';
+//Get the Reviews Model.
+require_once '../model/reviews-model.php';
 // Get the Functions Library
 require_once '../library/functions.php';
 

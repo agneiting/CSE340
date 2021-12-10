@@ -12,6 +12,8 @@ require_once '../model/main-model.php';
 require_once '../model/accounts-model.php';
 // Get the Functions Library
 require_once '../library/functions.php';
+// Get the Reviews Model
+require_once '../model/reviews-model.php';
 
 // Get the array of classifications
 $classifications = getClassifications();
@@ -245,8 +247,9 @@ switch ($action){
     default:
         //Get info for client
         $clientId = $_SESSION['clientData']['clientId'];
-        $clientData = getClientById($clientId);
-        $_SESSION['clientData'] = $clientData;
+        //$clientData = getClientById($clientId);
+        //$displayReviews = getReviewsByClient($clientId);
+        //$_SESSION['clientData'] = $clientData;
         include '../view/admin.php';
     break;
      

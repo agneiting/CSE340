@@ -87,7 +87,6 @@ function buildVehiclesDisplay($vehicles){
 
 
 
-
 /* * ********************************
 *  Functions for working with images
 * ********************************* */
