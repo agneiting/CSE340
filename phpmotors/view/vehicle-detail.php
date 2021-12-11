@@ -33,7 +33,20 @@
             //display the reviews for the vehicle
             echo getReviewsByItem($invId); 
             //If logged in, display the form for entering a review. If not logged in, display text telling them to login and provide a link to deliver the login view.
+            if(isset($warning))
+            {
+                echo $warning;
+            }
 
+            if(!isset($_SESSION['loggedin']))
+            {
+                echo "<p><a href='../view/login.php'>Login</a> required to submit a review.</p>";
+            }
+            else
+            {
+                echo "<h3>Create Review</h3>";
+                echo buildReviewForm($_SESSION['clientData'], $invId);
+            }
         ?>
 
     </main>

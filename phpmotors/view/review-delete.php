@@ -1,9 +1,4 @@
 <?php 
-    //Check for login and level
-    if ($_SESSION['clientData']['clientLevel'] < 2) {
-        header('location: /phpmotors/');
-        exit;
-    }
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/phpmotors/css/styles.css">
-    <title><?php if(isset($invInfo['invMake'])){ 
-	echo "Delete $invInfo[invMake] $invInfo[invModel]";} ?> | PHP Motors</title>
+    <title>Delete Review | PHP Motors</title>
 </head>
 
 <body>
@@ -25,8 +19,7 @@
     </nav>
     <main>
         <h1>
-            <?php if(isset($invInfo['invMake'])){ 
-            echo "Delete $invInfo[invMake] $invInfo[invModel]";} ?>
+            Delete Review
         </h1>
 
         <?php
@@ -35,24 +28,20 @@
         }
         ?>
 
-        <form action="/phpmotors/vehicles/index.php" method="post">
-            <label for="invMake">Make:</label>
+        <form action="/phpmotors/reviews/index.php" method="post">
+            <label for="reviewDate">Date:</label>
             <br>
-            <input type="text" readonly name="invMake" id="invMake" <?php if(isset($invMake)){echo "value='$invMake'";} elseif(isset($invInfo['invMake'])) {echo "value='$invInfo[invMake]'"; } ?>>
+            <input type="text" readonly name="reviewDate" id="reviewDate" <?php if(isset($reviewDate)){echo "value='$reviewDate'";} elseif(isset($review['reviewDate'])) {echo "value='$review[reviewDate]'"; } ?>>
             <br>
-            <label for="invModel">Model:</label>
+            <label for="reviewText">Content:</label>
             <br>
-            <input type="text" readonly name="invModel" id="invModel" <?php if (isset($invModel)){echo "value='$invModel'";} elseif(isset($invInfo['invModel'])) {echo "value='$invInfo[invModel]'"; } ?>>
-            <br>
-            <label for="invDescription">Description:</label>
-            <br>
-            <input type="text" readonly name="invDescription" id="invDescription" <?php if (isset($invDescription)){echo "value='$invDescription'";} elseif(isset($invInfo['invDescription'])) {echo "value='$invInfo[invDescription]'"; } ?>>
+            <input type="text" readonly name="reviewText" id="reviewText" <?php if (isset($reviewText)){echo "value='$reviewText'";} elseif(isset($review['reviewText'])) {echo "value='$review[reviewText]'"; } ?>>
             <br>
             <br>
-            <input type="submit" name="submit" value="Delete Vehicle">
+            <input type="submit" name="submit" value="Delete Review">
             <!-- Add the action name - value pair -->
-            <input type="hidden" name="action" value="deleteVehicle"> 
-            <input type="hidden" name="invId" value="<?php if(isset($invInfo['invId'])){ echo $invInfo['invId'];} elseif(isset($invId)){ echo $invId; } ?>">
+            <input type="hidden" name="action" value="deleteforever"> 
+            <input type="hidden" name="invId" value="<?php if(isset($review['reviewId'])){ echo $review['reviewId'];} elseif(isset($reviewId)){ echo $reviewId; } ?>">
         </form>
     </main>
     <footer>

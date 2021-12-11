@@ -4,7 +4,7 @@
         header('location: /phpmotors/');
         exit;
     }
-    
+
     //Build a dropdown menu
     $classificationList = '<select name="classificationId" id="classificationId">';
     $classificationList .= "<option>Choose a Car Classification</option>";

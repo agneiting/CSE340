@@ -2,20 +2,18 @@
 //PHPMotors Reviews Model
 
 //Function that inserts a new review into the reviews table.
-function insertReview($reviewId, $reviewText, $reviewDate, $invId, $clientId){
+function insertReview($reviewText, $invId, $clientId){
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
-    $sql = 'INSERT INTO reviews (reviewId, reviewText, reviewDate, invId, clientId)
-        VALUES (:reviewId, :reviewText, :reviewDate, :invId, :clientId)';
+    $sql = 'INSERT INTO reviews (reviewText, reviewDate, invId, clientId)
+        VALUES (:reviewText, :reviewDate, :invId, :clientId)';
     // Create the prepared statement using the phpmotors connection
     $stmt = $db->prepare($sql);
     // The next four lines replace the placeholders in the SQL
     // statement with the actual values in the variables
     // and tells the database the type of data it is
-    $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
     $stmt->bindValue(':reviewText', $reviewText, PDO::PARAM_STR);
-    $stmt->bindValue(':reviewDate', $reviewDate, PDO::PARAM_STR);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
     $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
     // Insert the data
@@ -69,8 +67,6 @@ function getReviewsByClient($clientId){
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC); 
     $stmt->closeCursor(); 
 
-    //return $reviews;
-
     if(!empty($reviews)) {
         $dv = '<ul id="review-display">';
         foreach ($reviews as $review) {    
@@ -79,8 +75,8 @@ function getReviewsByClient($clientId){
         $dv .= "<h3 class='item1'>$review[invMake] $review[invModel]</h3>";
         $dv .= "<p class='item2'>$review[reviewText]</p>";
         $dv .= "<p class='item3'><em>$review[reviewDate]</em></p>";
-        $dv .= "<a href='/phpmotors/reviews/index.php?action=modreview' title='Click to modify'>Modify</a><br>";
-        $dv .= "<a href='/phpmotors/reviews?action=deletereview&reviewId=$review[reviewId]' title='Click to delete'>Delete</a>";
+        $dv .= "<a href='/phpmotors/reviews/index.php?action=modreview&reviewId=$review[reviewId]&reviewDate=$review[reviewDate]&reviewText=$review[reviewText]' title='Click to modify'>Modify</a><br>";
+        $dv .= "<a href='/phpmotors/reviews?action=deletereview&reviewId=$review[reviewId]&reviewDate=$review[reviewDate]&reviewText=$review[reviewText]' title='Click to delete'>Delete</a>";
         $dv .= '</li>';
         }
         $dv .= '</ul>'; 
@@ -95,23 +91,22 @@ function getReviewsByClient($clientId){
 //Function that gets a specific review
 function getReview($reviewId){
     $db = phpmotorsConnect(); 
-    $sql = ' SELECT * FROM reviews WHERE reviewId = :reviewId'; 
+    $sql = 'SELECT * FROM reviews WHERE reviewId = :reviewId'; 
     $stmt = $db->prepare($sql); 
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT); 
     $stmt->execute(); 
     $review = $stmt->fetchAll(PDO::FETCH_ASSOC); 
     $stmt->closeCursor(); 
+
     return $review; 
 }
 
 //Function that updates a specific review
-function updateReview($reviewId, $reviewText, $reviewDate, $invId, $clientId){
+function updateReview($reviewText, $reviewId){
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
-    $sql = 'UPDATE reviews SET reviewId = :reviewId, reviewText = :reviewText, 
-        reviewDate = :reviewDate, invId = :invId, 
-        clientId = :clientId WHERE reviewId = :reviewId';
+    $sql = 'UPDATE reviews SET reviewText = :reviewText WHERE reviewId = :reviewId';
     // Create the prepared statement using the phpmotors connection
     $stmt = $db->prepare($sql);
     // The next four lines replace the placeholders in the SQL
@@ -119,9 +114,9 @@ function updateReview($reviewId, $reviewText, $reviewDate, $invId, $clientId){
     // and tells the database the type of data it is
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
     $stmt->bindValue(':reviewText', $reviewText, PDO::PARAM_STR);
-    $stmt->bindValue(':reviewDate', $reviewDate, PDO::PARAM_STR);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
-    $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
+    //$stmt->bindValue(':reviewDate', $reviewDate, PDO::PARAM_STR);
+    //$stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    //$stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
     // Insert the data
     $stmt->execute();
     // Ask how many rows changed as a result of our insert
@@ -135,7 +130,7 @@ function updateReview($reviewId, $reviewText, $reviewDate, $invId, $clientId){
 //Function that deletes a specific review
 function deleteReview($reviewId){
     $db = phpmotorsConnect();
-    $sql = 'DELETE FROM inventory WHERE reviewId = :reviewId';
+    $sql = 'DELETE FROM reviews WHERE reviewId = :reviewId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
     $stmt->execute();
@@ -143,5 +138,31 @@ function deleteReview($reviewId){
     $stmt->closeCursor();
     return $rowsChanged;
 }
+
+
+
+
+//Function that display the review form.
+function buildReviewForm(&$clientInfo, $invId){
+
+    //Create Screenname for client.
+    $screenName = substr($clientInfo['clientFirstname'], 0, 1);
+    $screenName .= $clientInfo['clientLastname'];
+
+    $dv = "<form action='/phpmotors/reviews/' method='POST' id='addreview'>";
+    $dv .= "<label for='screenName'>Screen Name</label><br>";
+    $dv .= "<input type='text' id='screenName' name='screenName' value='$screenName' readonly><br><br>";
+    $dv .= "<label for='reviewText'>Review</label><br>";
+    $dv .= "<textarea id='reviewText' name='reviewText' form='addreview' required></textarea><br>";
+    $dv .= "<input type='hidden' name='clientId' value='$clientInfo[clientId]'>";
+    $dv .= "<input type='hidden' name='invId' value='$invId'>";
+    $dv .= "<input type='hidden' name='action' value='addreview'>";
+    $dv .= "<input type='submit' value='Submit'>";
+    $dv .= "</form>";
+
+    return $dv;
+}
+
+
 
 ?>
