@@ -1,9 +1,8 @@
 <?php 
-
 // Connection to PHPMotors DB
 function phpmotorsConnect(){
     $server = 'localhost';
-    $dbname= 'phpmotors';
+    $dbname = 'phpmotors';
     $username = 'iClient';
     $password = 'XaaLo5U3vvHppQvH';
     $dsn = 'mysql:host='.$server.';dbname='.$dbname;

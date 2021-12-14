@@ -10,6 +10,8 @@ require_once '../library/connections.php';
 require_once '../model/main-model.php';
 // Get the accounts model
 require_once '../model/accounts-model.php';
+// Get the VEHICLES model
+require_once '../model/vehicles-model.php';
 // Get the reviews model
 require_once '../model/reviews-model.php';
 // Get the Functions Library
@@ -34,6 +36,14 @@ switch ($action){
         $reviewText = trim(filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_STRING));
         $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
         $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+
+        $invModel = filter_input(INPUT_GET, 'invModel', FILTER_SANITIZE_STRING);
+        $vehicleDetails = getVehicleDetails($invId);
+        if(!count($vehicleDetails)){
+        $message = "<p class='notice'>Sorry, $invModel could not be found.</p>";
+        } else {
+        $vehicleDetailsDisplay = buildVehicleDetailsDisplay($vehicleDetails);
+        }
 
         // Check for missing data
         if(empty($reviewText)){
@@ -142,7 +152,7 @@ switch ($action){
             exit;
         } else {
             $message = "<p>Sorry, the review has not been deleted. Please try again.</p><br>";
-            include '../view/review-delete.php';
+            include '../view/admin.php';
             exit;
         }
         break;

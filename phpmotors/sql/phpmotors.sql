@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2021 at 05:39 PM
+-- Generation Time: Dec 14, 2021 at 03:45 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -78,7 +78,8 @@ INSERT INTO `clients` (`clientId`, `clientFirstname`, `clientLastname`, `clientE
 (25, 'Karen', 'Wernli', 'kwernli@gmail.com', '$2y$10$H3.C41XiUeye5KOqQh827uXWd1h8En.wcWXvI4mAYyqDU4QeWaAOu', '1', NULL),
 (26, 'Kristen', 'Stewart', 'kstewart@gmail.com', '$2y$10$YV/bvBg/NGofH7EJLz.Jje.6zdvA/UY7qNJIZ0G3ZJ7UZoQIrOCWy', '1', NULL),
 (27, 'Maren', 'Pollard', 'mpollard@gmail.com', '$2y$10$Ckx1wUZaujp.p1FnFJQYBOlNo0MEqlooAVZk7L9CRwRBcK.bdej6O', '1', NULL),
-(28, 'Admin', 'User', 'admin@cse340.net', '$2y$10$4QxJEwI6ZTalsSvlTWb/he6UyaVpn1mZRqZfoyiNkYMMUAhIrX2wu', '3', NULL);
+(28, 'Admin', 'User', 'admin@cse340.net', '$2y$10$4QxJEwI6ZTalsSvlTWb/he6UyaVpn1mZRqZfoyiNkYMMUAhIrX2wu', '3', NULL),
+(29, 'Amber', 'alskdjf', 'amber.wernli50@hotmail.com', '$2y$10$w9CGzj7.I5l9uhqyk8JATOi5SxEGyg3uTxVB6N6.Ffbg/GQblz5Iq', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,8 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`reviewId`, `reviewText`, `reviewDate`, `invId`, `clientId`) VALUES
-(1, 'This is my first review.', '2021-12-09 22:27:59', 2, 28);
+(2, 'This is another test.', '2021-12-11 18:54:17', 2, 28),
+(9, 'Test', '2021-12-14 02:30:31', 2, 29);
 
 --
 -- Indexes for dumped tables
@@ -216,7 +218,7 @@ ALTER TABLE `carclassification`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `images`
@@ -234,7 +236,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `reviewId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `reviewId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

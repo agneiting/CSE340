@@ -168,6 +168,17 @@ footer p {
     font-weight: bold;
 }
 
+ul#review-display {
+    padding: 0px;
+}
+
+li.review {
+    border: 1px solid black;
+    margin-bottom: 1em;
+    padding: 0 1em 1em 1em;
+    width: 100%;
+}
+
 @media screen and (min-width: 700px) {
     html {
         background-image: url("/phpmotors/images/site/checkerboard.jpg");
@@ -253,5 +264,14 @@ footer p {
     #vd-display .item4 {
         grid-area: Description;
     }
+
+
+    li.review {
+        border: 1px solid black;
+        margin-bottom: 1em;
+        padding: 0 1em 1em 1em;
+        width: 50%;
+    }
+    
 
 }

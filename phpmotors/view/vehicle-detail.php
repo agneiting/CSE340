@@ -26,12 +26,11 @@
             if(isset($vehicleDetailsDisplay)){echo $vehicleDetailsDisplay;} 
         ?>
         <br>
-        <h2>Customer Reviews</h2>
+        <h2>Create Review</h2><br>
         <?php 
             //check for a message and display it if found
             if(isset($message)){echo $message; }
-            //display the reviews for the vehicle
-            echo getReviewsByItem($invId); 
+
             //If logged in, display the form for entering a review. If not logged in, display text telling them to login and provide a link to deliver the login view.
             if(isset($warning))
             {
@@ -44,9 +43,12 @@
             }
             else
             {
-                echo "<h3>Create Review</h3>";
                 echo buildReviewForm($_SESSION['clientData'], $invId);
             }
+            //display the reviews for the vehicle
+            echo "<br><h2>Customer Reviews</h2>";
+            echo getReviewsByItem($invId); 
+            
         ?>
 
     </main>

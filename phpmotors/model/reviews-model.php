@@ -6,8 +6,8 @@ function insertReview($reviewText, $invId, $clientId){
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
-    $sql = 'INSERT INTO reviews (reviewText, reviewDate, invId, clientId)
-        VALUES (:reviewText, :reviewDate, :invId, :clientId)';
+    $sql = 'INSERT INTO reviews (reviewText, invId, clientId)
+        VALUES (:reviewText, :invId, :clientId)';
     // Create the prepared statement using the phpmotors connection
     $stmt = $db->prepare($sql);
     // The next four lines replace the placeholders in the SQL
@@ -29,7 +29,7 @@ function insertReview($reviewText, $invId, $clientId){
 //Function that gets reviews for a specific inventory item
 function getReviewsByItem($invId){
     $db = phpmotorsConnect(); 
-    $sql = ' SELECT clientFirstname, clientLastname, reviewText, reviewDate FROM reviews JOIN clients ON reviews.clientId = clients.clientID WHERE invId = :invId ORDER BY reviewDate ASC'; 
+    $sql = ' SELECT clientFirstname, clientLastname, reviewText, reviewDate FROM reviews JOIN clients ON reviews.clientId = clients.clientID WHERE invId = :invId ORDER BY reviewDate DESC'; 
     $stmt = $db->prepare($sql); 
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT); 
     $stmt->execute(); 
@@ -60,7 +60,7 @@ function getReviewsByItem($invId){
 //Function that gets review written by a specific client
 function getReviewsByClient($clientId){
     $db = phpmotorsConnect(); 
-    $sql = 'SELECT invMake, invModel, reviewText, reviewDate, reviewId FROM reviews JOIN inventory ON reviews.invId = inventory.invId WHERE clientId = :clientId ORDER BY reviewDate ASC'; 
+    $sql = 'SELECT invMake, invModel, reviewText, reviewDate, reviewId FROM reviews JOIN inventory ON reviews.invId = inventory.invId WHERE clientId = :clientId ORDER BY reviewDate DESC'; 
     $stmt = $db->prepare($sql); 
     $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT); 
     $stmt->execute(); 
@@ -128,7 +128,7 @@ function updateReview($reviewText, $reviewId){
 }
 
 //Function that deletes a specific review
-function deleteReview($reviewId){
+function deleteReview($reviewId) {
     $db = phpmotorsConnect();
     $sql = 'DELETE FROM reviews WHERE reviewId = :reviewId';
     $stmt = $db->prepare($sql);
@@ -138,8 +138,6 @@ function deleteReview($reviewId){
     $stmt->closeCursor();
     return $rowsChanged;
 }
-
-
 
 
 //Function that display the review form.
